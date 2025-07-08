@@ -6,6 +6,7 @@ In this section, we will build a multi agent collaboration system using [Strands
 - **Redundancy**: Multiple agents working on similar tasks improve reliability  
 - **Emergent Intelligence**: The system exhibits capabilities beyond those of its individual components  
 
+
 The **Strands Agents SDK** supports various multi-agent patterns such as:
 
 - [**Swarm**](https://strandsagents.com/latest/user-guide/concepts/multi-agent/swarm/)  
