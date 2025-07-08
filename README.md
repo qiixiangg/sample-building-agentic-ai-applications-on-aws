@@ -35,4 +35,4 @@ The fourth lab build a multi agent collaboration workflow using Strands Agent. I
 The fifth lab walks the participants through the process of building a multi agent collaboration workflow with MCP support using LangGraph.
 
 
-This repository contains multiple labs based on the use case for a 'mortgage assistant'. In due course of time, more use cases will be added. 
+This repository contains multiple labs based on the use case for a 'mortgage assistant'. In due course of time, more use cases will be added. To get started, click [here(!https://github.com/aws-samples/sample-building-agentic-ai-applications-on-aws/tree/main/Mortgage_Assistant)]

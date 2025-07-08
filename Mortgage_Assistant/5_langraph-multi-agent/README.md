@@ -1,8 +1,8 @@
 # Mortgage Assistant with LangGraph Multi-Agent System
 
-This project demonstrates how to build mortgage assistant applications using LangGraph, an extension of LangChain that provides a framework for building stateful agentic applications. 
+This lab demonstrates how to build mortgage assistant applications using LangGraph, an extension of LangChain that provides a framework for building stateful agentic applications. 
 
-## Project Overview
+## Lab Overview
 
 The Mortgage Assistant is designed to:
 - Help customers access information about their existing mortgages

@@ -13,4 +13,4 @@ At the end of the workshop, the mortgage assistant will be able to handle multip
 - "what's my balance?"
 - "what's your general guidance about refinancing mortgages?"
 
-For an overview of the various labs go the overview page [here](./../Readme.md)
+For an overview of the various labs go the overview page [here](./../Readme.md). To get started, with the first lab, go [here](!https://github.com/aws-samples/sample-building-agentic-ai-applications-on-aws/tree/main/Mortgage_Assistant/1_bedrock-single-agent)
