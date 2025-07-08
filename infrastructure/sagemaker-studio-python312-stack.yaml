@@ -1,0 +1,259 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template to create SageMaker Studio with Python 3.12 support'
+
+Parameters:
+  DomainName:
+    Type: String
+    Default: 'agentic-workshop'
+  UserProfileName:
+    Type: String
+    Default: 'default-user'
+  DefaultRepoUrl:
+    Type: String
+    Default: 'https://github.com/aws-samples/bedrock-multi-agents-collaboration-workshop.git'
+
+Resources:
+  SageMakerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - sagemaker.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonBedrockFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+
+  StartAppLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: SageMakerAppPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sagemaker:CreateApp
+                  - sagemaker:DescribeApp
+                  - sagemaker:DescribeSpace
+                Resource: '*'
+
+  StartAppLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt StartAppLambdaRole.Arn
+      Timeout: 300
+      Code:
+        ZipFile: |
+          import boto3
+          import cfnresponse
+          import time
+          
+          def handler(event, context):
+              print(f'Event: {event}')
+              print(f'ResourceProperties: {event.get("ResourceProperties", {})}')
+              
+              if event['RequestType'] == 'Delete':
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+                  return
+              
+              try:
+                  sagemaker = boto3.client('sagemaker')
+                  
+                  space_name = event['ResourceProperties']['SpaceName']
+                  domain_id = event['ResourceProperties']['DomainId']
+                  
+                  print(f'Parameters - Domain: {domain_id}, Space: {space_name}')
+                  
+                  # Wait for space to be InService
+                  print('Waiting for space to be ready...')
+                  for i in range(30):
+                      response = sagemaker.describe_space(DomainId=domain_id, SpaceName=space_name)
+                      print(f'Space status: {response["Status"]}')
+                      if response['Status'] == 'InService':
+                          print("Status: InService")
+                          break
+                      time.sleep(10)
+                  else:
+                      raise Exception('Space did not become InService within timeout')
+                  
+                  print('Starting app..')
+                  sagemaker.create_app(DomainId=domain_id, SpaceName=space_name,AppType='JupyterLab',AppName='default')
+                  
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+              except Exception as e:
+                  print(f'Error: {e}')
+                  cfnresponse.send(event, context, cfnresponse.FAILED, {})
+
+  StartAppTrigger:
+    Type: AWS::CloudFormation::CustomResource
+    DependsOn: JupyterLabSpace
+    Properties:
+      ServiceToken: !GetAtt StartAppLambda.Arn
+      DomainId: !Ref SageMakerDomain
+      UserProfileName: !Ref UserProfileName
+      SpaceName: !Sub '${DomainName}-space'
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  SageMakerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 'SageMaker Studio Security Group'
+      VpcId: !Ref VPC
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+
+  SageMakerDomain:
+    Type: AWS::SageMaker::Domain
+    Properties:
+      DomainName: !Ref DomainName
+      AuthMode: IAM
+      VpcId: !Ref VPC
+      SubnetIds:
+        - !Ref PublicSubnet
+      DefaultUserSettings:
+        ExecutionRole: !GetAtt SageMakerExecutionRole.Arn
+        SecurityGroups:
+          - !Ref SageMakerSecurityGroup
+        DefaultLandingUri: 'studio::'
+        StudioWebPortal: ENABLED
+        JupyterServerAppSettings:
+          DefaultResourceSpec:
+            InstanceType: system
+
+
+  LifecycleConfig:
+    Type: AWS::SageMaker::StudioLifecycleConfig
+    Properties:
+      StudioLifecycleConfigName: !Sub '${DomainName}-lifecycle'
+      StudioLifecycleConfigAppType: JupyterLab
+      StudioLifecycleConfigContent: !Base64 |
+        #!/bin/bash
+        set -eux
+        
+        # Clone repository if not exists
+        
+        curl 'https://ws-assets-prod-iad-r-pdx-f3b3f9f1a7d6a3d0.s3.us-west-2.amazonaws.com/be7e9e99-69f1-4c65-882b-863580edaaea/genai-workshop.zip' --output genai-workshop.zip
+        unzip genai-workshop.zip
+        
+        
+        # Install additional packages
+        #pip install --upgrade pip
+        #pip install boto3 pandas numpy matplotlib
+        
+        echo "Lifecycle configuration completed"
+
+  SageMakerUserProfile:
+    Type: AWS::SageMaker::UserProfile
+    Properties:
+      DomainId: !Ref SageMakerDomain
+      UserProfileName: !Ref UserProfileName
+      UserSettings:
+        ExecutionRole: !GetAtt SageMakerExecutionRole.Arn
+        JupyterLabAppSettings:
+          DefaultResourceSpec:
+            InstanceType: ml.t3.medium
+            LifecycleConfigArn: !GetAtt LifecycleConfig.StudioLifecycleConfigArn
+          LifecycleConfigArns: 
+            - !GetAtt LifecycleConfig.StudioLifecycleConfigArn
+        JupyterServerAppSettings:
+          DefaultResourceSpec:
+            InstanceType: system
+
+  JupyterLabSpace:
+    Type: AWS::SageMaker::Space
+    DependsOn: SageMakerUserProfile
+    Properties:
+      DomainId: !Ref SageMakerDomain
+      OwnershipSettings:
+        OwnerUserProfileName: !Ref UserProfileName
+      SpaceDisplayName: !Sub '${DomainName}-space'
+      SpaceName: !Sub '${DomainName}-space'
+      SpaceSettings:
+        AppType: JupyterLab
+        JupyterLabAppSettings:
+          CodeRepositories:
+            - RepositoryUrl: !Ref DefaultRepoUrl
+          DefaultResourceSpec:
+            SageMakerImageArn: !Sub 'arn:aws:sagemaker:${AWS::Region}:885854791233:image/sagemaker-distribution-cpu'
+            SageMakerImageVersionArn: !Sub 'arn:aws:sagemaker:${AWS::Region}:885854791233:image-version/sagemaker-distribution-cpu/320'
+            InstanceType: ml.t3.medium
+        SpaceStorageSettings:
+          EbsStorageSettings:
+            EbsVolumeSizeInGb: 20
+      SpaceSharingSettings:
+        SharingType: Private
+
+Outputs:
+  DomainId:
+    Description: The ID of the created SageMaker Studio Domain
+    Value: !Ref SageMakerDomain
+  UserProfileName:
+    Description: The name of the created User Profile
+    Value: !Ref SageMakerUserProfile
+  ExecutionRoleArn:
+    Description: The ARN of the created SageMaker Execution Role
+    Value: !GetAtt SageMakerExecutionRole.Arn
+  StudioUrl:
+    Description: URL to access SageMaker Studio
+    Value: !Sub 'https://${SageMakerDomain}.studio.${AWS::Region}.sagemaker.aws/jupyter/default/lab'

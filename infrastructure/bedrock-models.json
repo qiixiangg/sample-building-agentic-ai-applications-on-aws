@@ -1,0 +1,24 @@
+{
+"Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BedrockModelRestrictionPolicy",
+      "Effect": "Deny",
+      "Action": [
+        "aws-marketplace:Subscribe"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringNotEquals": {
+          "aws-marketplace:ProductId": [
+            "c468b48a-84df-43a4-8c46-8870630108a7",
+            "99d90be8-b43e-49b7-91e4-752f3866c8c7",
+            "b0eb9475-3a2c-43d1-94d3-56756fd43737",
+            "prod-ozonys2hmmpeu",
+            "prod-6dw3qvchef7zy"
+          ]
+        }
+      }
+    }
+  ]
+}

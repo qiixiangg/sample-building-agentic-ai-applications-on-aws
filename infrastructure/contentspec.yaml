@@ -1,0 +1,47 @@
+version: 2.0
+defaultLocaleCode: en-US
+localeCodes:
+  - en-US
+awsAccountConfig:
+  accountSources:
+    - WorkshopStudio
+  regionConfiguration:
+    deployableRegions:
+      required:
+        - us-west-2
+      optional:
+        - us-east-1
+    minAccessibleRegions: 1
+    maxAccessibleRegions: 2
+    accessibleRegions:
+      required:
+        - us-west-2
+      optional:
+        - us-east-1
+
+  participantRole:
+    managedPolicies:
+      - "arn:aws:iam::aws:policy/IAMReadOnlyAccess"
+    iamPolicies: 
+      - static/infrastructure/iam-policies.json
+      - static/infrastructure/bedrock-models.json
+
+infrastructure:
+  cloudformationTemplates:
+    - templateLocation: static/infrastructure/eq-infra-setup.yaml
+      label: Amazon Q Stack
+      parameters:
+        - templateParameter: AssetBucketName
+          defaultValue: "{{.AssetsBucketName}}"
+        - templateParameter: AssetBucketPrefix
+          defaultValue: "{{.AssetsBucketPrefix}}"
+        - templateParameter: IsWorkshopStudioEnv
+          defaultValue: "yes"
+        - templateParameter: CreateIDC
+          defaultValue: "yes"
+    - templateLocation: static/infrastructure/sagemaker-notebook-stack.yaml # Creates the workshop studio assets
+      label: Creates SageMaker Studio Notebook with Anthropic Claude v3 repository
+    - templateLocation: static/infrastructure/streamlit-ecs-cfn.yaml
+      label: Streamlit ECS Deployment
+    - templateLocation: static/infrastructure/mortgage-agents-secrets.yaml
+      label: Mortgage Agents IDs Secret
