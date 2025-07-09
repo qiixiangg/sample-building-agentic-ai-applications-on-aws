@@ -14,7 +14,12 @@ The **Strands Agents SDK** supports various multi-agent patterns such as:
 - [**Workflow**](https://strandsagents.com/latest/user-guide/concepts/multi-agent/workflow/)  
 - [**Agent as a Tool**](https://strandsagents.com/latest/user-guide/concepts/multi-agent/agents-as-tools/)
 
-In the first notebook, we will build hierarchical multi agent system that follows the graph pattern. In the second notebook, we will use the agent_graph tool.
+In this lab we will include some of these patterns.
 
-**01_strands_multi_agent_collaboration-mcp-tool.ipynb** - You will be creating a Hierarchical Agent Graph usng strands and integrating custom tools and MCP tools
-**02_strands_graph_coordinator_agents.ipynb** - You will be creating the same agent as above (but only Strands custom tools and not MCP tools) but using **agent_graph** tool provided by Strands. 
+## Lab structure
+
+**01_create-new-application-agent-strands.ipynb** - In the first notebook, we will build a single agent that can help a customer with a new mortgage application. This is similar to the single agent that we built in the bedrock agents lab. However, for this lab we will be using Strands. 
+
+**02_strands_multi_agent_collaboration-mcp-tool.ipynb** - In the second notebook of this lab, we will build hierarchical multi agent system that follows the graph pattern. We will begin by creating two more agents and then a supervisor agent to coordinate the three agents. We will also enable our supervisor to perform a credit check using an MCP server that we built in the previous lab.  We will use the graph pattern in this lab.
+
+**03_strands_graph_coordinator_agents.ipynb** - In the third lab, we will create the same multi agent system as above but instead of weaving the agents together manually, we will use the **agent_graph** tool provided by Strands. 
