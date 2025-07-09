@@ -15,6 +15,8 @@ Customers that want a fully managed way to build agents go the Bedrock agents ro
 
 ### Building AI Agents using Amazon Bedrock
 The first lab walks the participants through the process of building a single AI agent using Amazon Bedrock agents. For the mortgage processing use case the single agent walks a cutomer through the process of a new mortgage application preapproval.
+
+
 <img src="./images/01_03_single_agent.png" alt="Single agent" width="400"/>
 
 
