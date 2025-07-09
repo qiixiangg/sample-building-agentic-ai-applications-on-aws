@@ -17,7 +17,7 @@ The **Strands Agents SDK** supports various multi-agent patterns such as:
 In this lab we will include some of these patterns.
 
 ## Lab structure
-<img src="/images/01_05_mcp_server_client.png" alt="Multi agent with MCP" width="600"/>
+<img src="/images/01_06_multi_agent_mcp.png" alt="Multi agent MCP" width="600"/>
 
 **01_create-new-application-agent-strands.ipynb** - In the first notebook, we will build a single agent that can help a customer with a new mortgage application. This is similar to the single agent that we built in the bedrock agents lab. However, for this lab we will be using Strands. 
 

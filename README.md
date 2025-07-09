@@ -26,16 +26,17 @@ The second lab expands the single agent to a multi agent use case using Amazon B
 The third lab explains how to build an MCP server. For the mortgage processing use case the MCP server will be used to perform a credit check for the customer. The MCP server built in this lab uses HTTP protocol and will be used in the next two labs.
 
 
-
+<img src="./images/01_05_mcp_server_client.png" alt="MCP" width="600"/>
 
 
 ### Building AI agents using Strands Agent
 The fourth lab build a multi agent collaboration workflow using Strands Agent. It also includes the MCP server built above as part of its workflow. The Strands Agent is then deployed on AWS using AWS lambda.
 
-<img src="./images/01_05_mcp_server_client.png" alt="Multi agent with MCP" width="600"/>
+<img src="./images/01_06_multi_agent_mcp.png" alt="multi agent MCP" width="600"/>
 
 ### Building AI agents using LangGraph.
 The fifth lab walks the participants through the process of building a multi agent collaboration workflow with MCP support using LangGraph.
 
+<img src="./images/01_06_multi_agent_mcp.png" alt="MCP" width="600"/>
 
 This repository contains multiple labs based on the use case for a 'mortgage assistant'. In due course of time, more use cases will be added. To get started, click [here](!https://github.com/aws-samples/sample-building-agentic-ai-applications-on-aws/tree/main/Mortgage_Assistant)]
