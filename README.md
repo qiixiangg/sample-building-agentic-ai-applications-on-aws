@@ -9,14 +9,14 @@ This repository contains workshops that helps your learn how to build Agentic AI
 ### Agentic AI in AWS
 To build AI agents in AWS, you have three options as shown below.
 
-<img src="./images/01_01_agents_in_Aws.png" alt="Agents in AWS" width="400"/>
+<img src="./images/01_01_agents_in_Aws.png" alt="Agents in AWS" width="600"/>
 
 Customers that want a fully managed way to build agents go the Bedrock agents route. For DIY, customers choose either Strands agents or open source framework like Langgraph. This workshop covers  Bedrock agents, Strands Agents and Langgraph
 
 ### Building AI Agents using Amazon Bedrock
 The first lab walks the participants through the process of building a single AI agent using Amazon Bedrock agents. For the mortgage processing use case the single agent walks a cutomer through the process of a new mortgage application preapproval.
+<img src="./images/01_03_single_agent.png" alt="Single agent" width="600"/>
 
-![single agent](./images/01_03_single_agent.png)
 
 The second lab expands the single agent to a multi agent use case using Amazon Bedrock agents. We introduce two other agents for the mortgage processing use case - An agent to answer questions using a knowedge base and another agent to answer questions on an existing mortgage. A supervisor agent is used to route the request to an appropriate agent.
 
