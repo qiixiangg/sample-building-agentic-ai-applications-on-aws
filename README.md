@@ -8,7 +8,8 @@ This repository contains workshops that helps your learn how to build Agentic AI
 
 ### Agentic AI in AWS
 To build AI agents in AWS, you have three options as shown below.
-![Agents in AWS](./images/01_01_agents_in_Aws.png)
+
+<img src="./images/01_01_agents_in_Aws.png" alt="Agents in AWS" width="400"/>
 
 Customers that want a fully managed way to build agents go the Bedrock agents route. For DIY, customers choose either Strands agents or open source framework like Langgraph. This workshop covers  Bedrock agents, Strands Agents and Langgraph
 
