@@ -32,7 +32,7 @@ The third lab explains how to build an MCP server. For the mortgage processing u
 
 
 ### Building AI agents using Strands Agent
-The fourth lab build a multi agent collaboration workflow using Strands Agent. It also includes the MCP server built above as part of its workflow. The Strands Agent is then deployed on AWS using AWS lambda.
+The fourth lab builds a multi agent collaboration workflow using Strands Agent. It also includes the MCP server built above as part of its workflow. The Strands Agent is then deployed on AWS using AWS lambda.
 
 <img src="./images/01_06_multi_agent_mcp.png" alt="multi agent MCP" width="600"/>
 
