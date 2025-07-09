@@ -19,18 +19,20 @@ The first lab walks the participants through the process of building a single AI
 
 
 The second lab expands the single agent to a multi agent use case using Amazon Bedrock agents. We introduce two other agents for the mortgage processing use case - An agent to answer questions using a knowedge base and another agent to answer questions on an existing mortgage. A supervisor agent is used to route the request to an appropriate agent.
+<img src="./images/01_04_multi_agent.png" alt="Multi agent" width="600"/>
 
-![Multi agent](./images/01_04_multi_agent.png)
 
 ### Building an MCP server
 The third lab explains how to build an MCP server. For the mortgage processing use case the MCP server will be used to perform a credit check for the customer. The MCP server built in this lab uses HTTP protocol and will be used in the next two labs.
 
-![Multi agent](./images/01_05_mcp_server_client.png)
+
+
+
 
 ### Building AI agents using Strands Agent
 The fourth lab build a multi agent collaboration workflow using Strands Agent. It also includes the MCP server built above as part of its workflow. The Strands Agent is then deployed on AWS using AWS lambda.
 
-![Multi agent MCP](./images/01_06_multi_agent_mcp.png)
+<img src="./images/01_05_mcp_server_client.png" alt="Multi agent with MCP" width="600"/>
 
 ### Building AI agents using LangGraph.
 The fifth lab walks the participants through the process of building a multi agent collaboration workflow with MCP support using LangGraph.
