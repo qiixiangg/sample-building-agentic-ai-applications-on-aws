@@ -26,3 +26,7 @@ Step 3: If you need help, we have the solution in the **03_solution_to_challenge
 #### notebook 2 ####
 
 [02_strands_graph_coordinator_agents.ipynb](./02_strands_graph_coordinator_agents.ipynb) - In the second notebook in the lab, we will create the same multi agent system as above but instead of weaving the agents together manually, we will use the **[agent_graph](https://strandsagents.com/latest/user-guide/concepts/multi-agent/graph/#using-the-agent-graph-tool)** tool provided by Strands. 
+
+
+#### notebook 3 ####
+[03_solution_to_challenge.ipynb](./03_solution_to_challenge.ipynb) - This notebook provides the solution to the challenge posted in the [01_strands_multi_agent_collaboration-mcp-tool.ipynb](../4_strands-agents-multi-agent-mcp/01_strands_multi_agent_collaboration-mcp-tool.ipynb). It implements the new loan application agent.
