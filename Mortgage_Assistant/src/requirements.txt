@@ -11,3 +11,6 @@ pyyaml
 retrying
 streamlit>=1.28.0
 pickleshare
+strands-agents==0.2.1
+strands-agents-tools==0.1.8
+mcp
