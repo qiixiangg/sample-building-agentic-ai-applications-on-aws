@@ -29,6 +29,9 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
         - arn:aws:iam::aws:policy/AmazonBedrockFullAccess
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/IAMFullAccess
+        - arn:aws:iam::aws:policy/AmazonOpenSearchServiceFullAccess
+        - arn:aws:iam::aws:policy/AWSLambda_FullAccess
 
   StartAppLambdaRole:
     Type: AWS::IAM::Role
