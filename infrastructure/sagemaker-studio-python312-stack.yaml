@@ -32,7 +32,18 @@ Resources:
         - arn:aws:iam::aws:policy/IAMFullAccess
         - arn:aws:iam::aws:policy/AmazonOpenSearchServiceFullAccess
         - arn:aws:iam::aws:policy/AWSLambda_FullAccess
-
+      Policies:
+        - PolicyName: AOSSFullAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: Statement1
+                Effect: Allow
+                Action:
+                  - aoss:*
+                Resource:
+                  - "*"
+                  
   StartAppLambdaRole:
     Type: AWS::IAM::Role
     Properties:
