@@ -15,7 +15,7 @@ This lab has two different notebooks
 
 <img src="/images/01_06_multi_agent_mcp.png" alt="Multi agent MCP" width="600"/>
 
-*However, we have a small challenge for you in this lab*
+**However, we have a small challenge for you in this lab**
 
 We have implemented only two collaborator agents and would leave the implementation of the 'create new morgage application agent' as a challenge for you. Here's what you need to do:
 

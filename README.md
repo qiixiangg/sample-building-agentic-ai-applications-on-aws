@@ -1,6 +1,6 @@
 #### Agentic AI workshop
 
-Welcome to the agentic AI workshop!.
+Welcome to the agentic AI workshop!
 
 If you are beginning your journey on Agentic AI or are looking to dive deep into cool new techniques such as multi agent collaboration or Model context Protocol, then you are in the right place.
 
