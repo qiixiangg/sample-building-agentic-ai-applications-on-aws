@@ -1,16 +1,11 @@
 boto3
 botocore
-termcolor==2.5.0
-black==24.10.0
 opensearch-py==2.7.1
 pydantic==2.10.2
-rich==13.9.4
-matplotlib==3.9.2
 ipython==8.29.0
 pyyaml
 retrying
 streamlit>=1.28.0
-pickleshare
 strands-agents==0.2.1
 strands-agents-tools==0.1.8
 mcp
