@@ -42,20 +42,19 @@ Resources:
                   - aoss:*
                 Resource:
                   - "*"
-          - PolicyName: IAMPermissionsPolicy
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - Sid: IAMPermissions
-                  Effect: Allow
-                  Action:
+        - PolicyName: IAMPermissionsPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: IAMPermissions
+                Effect: Allow
+                Action:
                     - iam:PassRole
                     - iam:CreateRole
                     - iam:CreatePolicy
                     - iam:AttachRolePolicy
-                  Resource:
+                Resource:
                     - "*"
-                  
   StartAppLambdaRole:
     Type: AWS::IAM::Role
     Properties:
