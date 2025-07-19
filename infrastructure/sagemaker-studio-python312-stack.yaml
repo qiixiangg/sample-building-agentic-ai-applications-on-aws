@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'CloudFormation template to create SageMaker Studio with Python 3.12 support'
+Description: 'CloudFormation template to create SageMaker Studio with Python 3.12 support.'
 
 Parameters:
   DomainName:
@@ -10,7 +10,7 @@ Parameters:
     Default: 'default-user'
   DefaultRepoUrl:
     Type: String
-    Default: 'https://github.com/aws-samples/bedrock-multi-agents-collaboration-workshop.git'
+    Default: 'https://github.com/aws-samples/sample-building-agentic-ai-applications-on-aws'
 
 Resources:
   SageMakerExecutionRole:
@@ -32,6 +32,15 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonOpenSearchServiceFullAccess
         - arn:aws:iam::aws:policy/AWSLambda_FullAccess
       Policies:
+        - PolicyName: PassRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - iam:GetRole
+                  - iam:PassRole
+                Resource: '*'
         - PolicyName: AOSSFullAccessPolicy
           PolicyDocument:
             Version: '2012-10-17'
@@ -218,8 +227,7 @@ Resources:
         
         # Clone repository if not exists
         
-        curl 'https://ws-assets-prod-iad-r-pdx-f3b3f9f1a7d6a3d0.s3.us-west-2.amazonaws.com/be7e9e99-69f1-4c65-882b-863580edaaea/genai-workshop.zip' --output genai-workshop.zip
-        unzip genai-workshop.zip
+        git clone https://github.com/aws-samples/sample-building-agentic-ai-applications-on-aws
         
         
         # Install additional packages
