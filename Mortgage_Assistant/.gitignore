@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Amazon Q
+.amazonq/
+
+# IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# AWS credentials (if accidentally placed in project)
+.aws/
+
+# 6_strands directories - ignore specific files, keep .ipynb and requirements.txt
+6_strands-agents-bedrock-agentcore/01-*/.bedrock_agentcore.yaml
+6_strands-agents-bedrock-agentcore/01-*/Dockerfile
+6_strands-agents-bedrock-agentcore/01-*/.dockerignore
+6_strands-agents-bedrock-agentcore/01-*/utils.py
+6_strands-agents-bedrock-agentcore/01-*/mcp_server.py
+6_strands-agents-bedrock-agentcore/02-*/.bedrock_agentcore.yaml
+6_strands-agents-bedrock-agentcore/02-*/Dockerfile
+6_strands-agents-bedrock-agentcore/02-*/.dockerignore
+6_strands-agents-bedrock-agentcore/02-*/strands_multi_agent.py
