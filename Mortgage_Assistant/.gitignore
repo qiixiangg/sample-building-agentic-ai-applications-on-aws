@@ -37,7 +37,6 @@ env/
 6_strands-agents-bedrock-agentcore/01-*/.bedrock_agentcore.yaml
 6_strands-agents-bedrock-agentcore/01-*/Dockerfile
 6_strands-agents-bedrock-agentcore/01-*/.dockerignore
-6_strands-agents-bedrock-agentcore/01-*/utils.py
 6_strands-agents-bedrock-agentcore/01-*/mcp_server.py
 6_strands-agents-bedrock-agentcore/02-*/.bedrock_agentcore.yaml
 6_strands-agents-bedrock-agentcore/02-*/Dockerfile
