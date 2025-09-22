@@ -6,13 +6,13 @@
 
 **Changes:**
 - **Package Installation**: Added `matplotlib termcolor pickleshare` to pip install command
-- **Model Configuration**: Changed from variable `agent_foundation_model[0]` to hardcoded inference profile `"arn:aws:bedrock:us-east-1:025066245096:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0"`
-- **Environment Variables**: Change `region` variable set to hardcoded 'us-east-1'
+- **Model Configuration**: Changed from variable `agent_foundation_model[0]` to hardcoded inference profile `"arn:aws:bedrock:us-west-2:025066245096:inference-profile/us.anthropic.claude-3-5-haiku-20241022-v1:0"`
+- **Environment Variables**: Change `region` variable set to hardcoded 'us-west-2'
 
 ### 4_strands-agents-multi-agent-mcp/01_strands_multi_agent_collaboration-mcp-tool.ipynb
 
 **Changes:**
-- **Environment Variables**: Added `AWS_REGION` environment variable set to 'us-east-1'
+- **Environment Variables**: Added `AWS_REGION` environment variable set to 'us-west-2'
 - **Model Configuration**: Changed model from `"anthropic.claude-3-5-haiku-20241022-v1:0"` to `"us.anthropic.claude-3-5-haiku-20241022-v1:0"` (added region prefix)
 
 ## Added Files
